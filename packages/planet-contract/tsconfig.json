@@ -3,7 +3,6 @@
   "compilerOptions": {
     "types": ["node"]
   },
-  "references": [],
   "include": ["src"],
   "exclude": [
     "**/*.test.*",

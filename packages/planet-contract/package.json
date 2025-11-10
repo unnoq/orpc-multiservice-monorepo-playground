@@ -9,6 +9,8 @@
     "type:check": "tsc -b"
   },
   "dependencies": {
-    "@orpc/contract": "^1.11.1"
+    "@orpc/contract": "^1.11.1",
+    "@orpc/zod": "^1.11.1",
+    "zod": "^4.1.12"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "@repo/auth-contract",
+  "name": "@repo/chat-contract",
   "type": "module",
   "version": "0.0.0",
   "exports": {
@@ -11,6 +11,7 @@
   "dependencies": {
     "@orpc/contract": "^1.11.1",
     "@orpc/zod": "^1.11.1",
+    "@repo/auth-contract": "workspace:*",
     "zod": "^4.1.12"
   }
 }
