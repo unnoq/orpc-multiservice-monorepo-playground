@@ -5,6 +5,11 @@
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "types": ["vite/client"]
   },
+  "references": [
+    { "path": "../../packages/auth-contract" },
+    { "path": "../../packages/planet-contract" },
+    { "path": "../../packages/chat-contract" }
+  ],
   "include": ["src"],
   "exclude": [
     "**/*.test.*",
