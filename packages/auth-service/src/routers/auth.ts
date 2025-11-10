@@ -17,7 +17,7 @@ export const signin = pub.auth.signin
 export const me = authed.auth.me
   .handler(async ({ context }) => {
     return {
-      id: context.auth.id,
+      id: context.auth.userId,
       email: 'user@example.com',
       name: 'Example User',
     }

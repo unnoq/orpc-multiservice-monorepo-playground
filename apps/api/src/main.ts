@@ -2,10 +2,96 @@
 
 import { createServer } from 'node:http'
 import process from 'node:process'
+import { MemoryPublisher } from '@orpc/experimental-publisher/memory'
+import { getAuth } from '@repo/auth-service'
+import { authServiceOpenAPIHandler, authServiceRPCHandler } from './service-auth'
+import { chatServiceOpenAPIHandler, chatServiceRPCHandler } from './service-chat'
+import { planetServiceOpenAPIHandler, planetServiceRPCHandler } from './service-planet'
+import { handleSpecRequest } from './spec'
+import { once } from './utils'
 
-const server = createServer((_req, res) => {
-  res.writeHead(200, { 'Content-Type': 'text/plain' })
-  res.end('Hello World!\n')
+const roomPublisher = new MemoryPublisher<any>()
+
+const BEARER_REGEX = /^Bearer ?/
+
+const server = createServer(async (req, res) => {
+  const authToken = req.headers.authorization?.replace(BEARER_REGEX, '') || null
+
+  const authServiceRPCHandleResult = await authServiceRPCHandler.handle(req, res, {
+    prefix: '/rpc/auth',
+    context: {
+      authToken,
+    },
+  })
+
+  if (authServiceRPCHandleResult.matched) {
+    return
+  }
+
+  const authServiceOpenAPIHandleResult = await authServiceOpenAPIHandler.handle(req, res, {
+    prefix: '/api/auth',
+    context: {
+      authToken,
+    },
+  })
+
+  if (authServiceOpenAPIHandleResult.matched) {
+    return
+  }
+
+  const planetServiceRPCHandleResult = await planetServiceRPCHandler.handle(req, res, {
+    prefix: '/rpc/planet',
+    context: {
+      getAuth: once(() => getAuth(authToken)),
+    },
+  })
+
+  if (planetServiceRPCHandleResult.matched) {
+    return
+  }
+
+  const planetServiceOpenAPIHandleResult = await planetServiceOpenAPIHandler.handle(req, res, {
+    prefix: '/api/planet',
+    context: {
+      getAuth: once(() => getAuth(authToken)),
+    },
+  })
+
+  if (planetServiceOpenAPIHandleResult.matched) {
+    return
+  }
+
+  const chatServiceRPCHandleResult = await chatServiceRPCHandler.handle(req, res, {
+    prefix: '/rpc/chat',
+    context: {
+      roomPublisher,
+      getAuth: once(() => getAuth(authToken)),
+    },
+  })
+
+  if (chatServiceRPCHandleResult.matched) {
+    return
+  }
+
+  const chatServiceOpenAPIHandleResult = await chatServiceOpenAPIHandler.handle(req, res, {
+    prefix: '/api/chat',
+    context: {
+      roomPublisher,
+      getAuth: once(() => getAuth(authToken)),
+    },
+  })
+
+  if (chatServiceOpenAPIHandleResult.matched) {
+    return
+  }
+
+  const specHandleResult = await handleSpecRequest(req, res)
+  if (specHandleResult.matched) {
+    return
+  }
+
+  res.writeHead(404)
+  res.end('Not Found\n')
 })
 
 const PORT = process.env.PORT ? Number.parseInt(process.env.PORT) : 3000

@@ -4,14 +4,21 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "tsdown src/main.ts --watch --on-success 'node ./dist/main.mjs'",
+    "dev": "tsdown src/main.ts --watch --on-success 'node ./dist/main.mjs | pino-pretty'",
     "build": "tsdown src/main.ts",
     "preview": "node ./dist/main.mjs",
     "type:check": "tsc --noEmit"
   },
   "devDependencies": {
+    "@orpc/experimental-pino": "^1.11.1",
+    "@orpc/experimental-publisher": "^1.11.1",
+    "@orpc/openapi": "^1.11.1",
+    "@orpc/server": "^1.11.1",
     "@repo/auth-service": "workspace:*",
+    "@repo/chat-service": "workspace:*",
     "@repo/planet-service": "workspace:*",
+    "pino": "^10.1.0",
+    "pino-pretty": "^13.1.2",
     "tsdown": "^0.16.1"
   }
 }
