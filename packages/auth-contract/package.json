@@ -1,0 +1,14 @@
+{
+  "name": "@repo/auth-contract",
+  "type": "module",
+  "version": "0.0.0",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "type:check": "tsc -b"
+  },
+  "dependencies": {
+    "@orpc/contract": "^1.11.1"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "name": "@repo/mono",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@10.21.0",
+  "scripts": {
+    "prepare": "simple-git-hooks",
+    "dev": "pnpm run --parallel dev",
+    "build": "pnpm run -r build",
+    "preview": "pnpm run --parallel preview",
+    "type:check": "pnpm run -r type:check && tsc --noEmit",
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest watch --passWithNoTests",
+    "test:coverage": "pnpm run test --coverage",
+    "lint": "eslint --max-warnings=0 .",
+    "lint:fix": "pnpm run lint --fix",
+    "sherif": "pnpm dlx sherif",
+    "sherif:fix": "pnpm run sherif --fix"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^6.2.0",
+    "@types/node": "^24.10.0",
+    "@vitest/coverage-v8": "^4.0.8",
+    "eslint": "^9.39.1",
+    "eslint-plugin-format": "^1.0.2",
+    "lint-staged": "^16.2.6",
+    "simple-git-hooks": "^2.13.1",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.8"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --no-warn-ignored --max-warnings=0 --fix"
+  }
+}

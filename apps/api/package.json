@@ -1,0 +1,17 @@
+{
+  "name": "@repo/api",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "tsdown src/main.ts --watch --on-success 'node ./dist/main.mjs'",
+    "build": "tsdown src/main.ts",
+    "preview": "node ./dist/main.mjs",
+    "type:check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@repo/auth-service": "workspace:*",
+    "@repo/planet-service": "workspace:*",
+    "tsdown": "^0.16.1"
+  }
+}
