@@ -10,11 +10,17 @@
     "type:check": "tsc -b"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.90.7",
+    "@tanstack/react-query-devtools": "^5.90.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
   "devDependencies": {
+    "@orpc/client": "^1.11.1",
+    "@orpc/contract": "^1.11.1",
+    "@orpc/tanstack-query": "^1.11.1",
     "@repo/auth-contract": "workspace:*",
+    "@repo/chat-contract": "workspace:*",
     "@repo/planet-contract": "workspace:*",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",

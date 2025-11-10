@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "tsdown src/main.ts --watch --on-success 'node ./dist/main.mjs | pino-pretty'",
+    "dev": "tsx --watch src/main.ts | pino-pretty",
     "build": "tsdown src/main.ts",
     "preview": "node ./dist/main.mjs",
     "type:check": "tsc --noEmit"

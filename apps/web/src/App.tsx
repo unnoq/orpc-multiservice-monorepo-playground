@@ -1,8 +1,12 @@
+import { RequireLogin } from './components/require-login'
+
 function App() {
   return (
-    <div>
-      hello world
-    </div>
+    <RequireLogin>
+      <div>
+        hello world
+      </div>
+    </RequireLogin>
   )
 }
 

@@ -1,5 +1,5 @@
 import type { NewPlanet, Planet, UpdatePlanet } from '@repo/planet-contract'
-import { os } from '@orpc/server'
+import { ORPCError, os } from '@orpc/server'
 
 export interface DB {
   planets: {
@@ -84,7 +84,7 @@ export function createFakeDB(): DB {
         const index = planets.findIndex(p => p.id === planet.id)
 
         if (index === -1) {
-          throw new Error('Planet not found')
+          throw new ORPCError('NOT_FOUND')
         }
 
         planets[index] = {
