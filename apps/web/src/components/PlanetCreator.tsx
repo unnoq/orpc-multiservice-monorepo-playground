@@ -1,38 +1,17 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useState } from 'react'
 import { planetServiceOrpc } from '../lib/service-planet'
 import { Card } from './ui/Card'
 import { InfoMessage } from './ui/InfoMessage'
 
-interface PlanetFormData {
-  name: string
-  description?: string
-  image?: File
-}
-
 export function PlanetCreator() {
   const queryClient = useQueryClient()
-  const [formData, setFormData] = useState<PlanetFormData>({
-    name: '',
-    description: '',
-  })
 
   const createPlanetMutation = useMutation(
     planetServiceOrpc.planet.create.mutationOptions({
       onSuccess() {
-        // Invalidate and refetch planets list
         queryClient.invalidateQueries({
           queryKey: planetServiceOrpc.planet.key(),
         })
-
-        // Reset form
-        setFormData({ name: '', description: '' })
-
-        // Clear file input manually
-        const fileInput = document.querySelector<HTMLInputElement>('input[type="file"]')
-        if (fileInput) {
-          fileInput.value = ''
-        }
       },
       onError(error) {
         console.error('Failed to create planet:', error)
@@ -42,7 +21,7 @@ export function PlanetCreator() {
     }),
   )
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const form = new FormData(e.currentTarget)
 
@@ -50,11 +29,13 @@ export function PlanetCreator() {
     const description = (form.get('description') as string | null) ?? undefined
     const image = form.get('image') as File
 
-    createPlanetMutation.mutate({
+    await createPlanetMutation.mutateAsync({
       name,
       description,
       image: image.size > 0 ? image : undefined,
     })
+
+    e.currentTarget.reset()
   }
 
   return (
@@ -71,8 +52,6 @@ export function PlanetCreator() {
             name="name"
             required
             placeholder="Enter planet name..."
-            value={formData.name}
-            onChange={e => setFormData({ ...formData, name: e.target.value })}
           />
         </label>
 
@@ -81,8 +60,6 @@ export function PlanetCreator() {
           <textarea
             name="description"
             placeholder="Describe this planet (optional)..."
-            value={formData.description}
-            onChange={e => setFormData({ ...formData, description: e.target.value })}
           />
         </label>
 

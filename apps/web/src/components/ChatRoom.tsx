@@ -8,10 +8,6 @@ import { WarningMessage } from './ui/WarningMessage'
 
 const DEFAULT_ROOM = 'default'
 
-interface ChatMessage {
-  message: string
-}
-
 export function ChatRoom() {
   const [inputValue, setInputValue] = useState('')
 
@@ -24,9 +20,6 @@ export function ChatRoom() {
 
   const sendMessageMutation = useMutation(
     chatServiceOrpc.room.publish.mutationOptions({
-      onSuccess: () => {
-        setInputValue('')
-      },
       onError(error) {
         console.error('Failed to send message:', error)
         // eslint-disable-next-line no-alert
@@ -41,10 +34,12 @@ export function ChatRoom() {
     if (!inputValue.trim())
       return
 
-    sendMessageMutation.mutate({
+    await sendMessageMutation.mutateAsync({
       room: DEFAULT_ROOM,
       message: inputValue,
     })
+
+    setInputValue('')
   }
 
   return (
@@ -89,11 +84,7 @@ export function ChatRoom() {
   )
 }
 
-interface MessageListProps {
-  messages: ChatMessage[]
-}
-
-function MessageList({ messages }: MessageListProps) {
+function MessageList({ messages }: { messages: Array<{ message: string }> }) {
   return (
     <ul className="chat-messages">
       {messages.length === 0 && (

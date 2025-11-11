@@ -23,12 +23,6 @@ export function AuthGuard({ children }: AuthGuardProps) {
         })
         setUser(userData)
       }
-      catch (err) {
-        if (!controller.signal.aborted) {
-          console.error('Auth check failed:', err)
-          // Don't show error, just show login
-        }
-      }
       finally {
         if (!controller.signal.aborted) {
           setIsLoading(false)

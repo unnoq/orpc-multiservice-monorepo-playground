@@ -1,15 +1,9 @@
+import type { PlanetServiceOutputs } from '../lib/service-planet'
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query'
 import { planetServiceOrpc } from '../lib/service-planet'
 import { ErrorMessage } from './ui/ErrorMessage'
 import { InfoMessage } from './ui/InfoMessage'
 import { InterfaceWindow } from './ui/InterfaceWindow'
-
-interface Planet {
-  id: number
-  name: string
-  description?: string
-  imageUrl?: string
-}
 
 export function PlanetsList() {
   const {
@@ -66,11 +60,7 @@ export function PlanetsList() {
   )
 }
 
-interface PlanetsTableProps {
-  planets: Planet[]
-}
-
-function PlanetsTable({ planets }: PlanetsTableProps) {
+function PlanetsTable({ planets }: { planets: PlanetServiceOutputs['planet']['list'] }) {
   return (
     <table>
       <thead>
@@ -90,11 +80,7 @@ function PlanetsTable({ planets }: PlanetsTableProps) {
   )
 }
 
-interface PlanetRowProps {
-  planet: Planet
-}
-
-function PlanetRow({ planet }: PlanetRowProps) {
+function PlanetRow({ planet }: { planet: PlanetServiceOutputs['planet']['list'][0] }) {
   return (
     <tr>
       <td>

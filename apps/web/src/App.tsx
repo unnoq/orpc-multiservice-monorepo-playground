@@ -18,6 +18,9 @@ function App() {
         <div className="nav-menu">
           <a href="#planets">Planets</a>
           <a href="#chat">Chat</a>
+          <a href={import.meta.env.VITE_API_URL} target="_blank" rel="noopener noreferrer">
+            API Reference
+          </a>
         </div>
 
         <div className="nav-actions">
