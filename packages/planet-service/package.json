@@ -9,7 +9,7 @@
     "type:check": "tsc -b"
   },
   "dependencies": {
-    "@orpc/contract": "^1.11.1",
+    "@orpc/contract": "^1.11.2",
     "@repo/auth-contract": "workspace:*",
     "@repo/planet-contract": "workspace:*"
   }

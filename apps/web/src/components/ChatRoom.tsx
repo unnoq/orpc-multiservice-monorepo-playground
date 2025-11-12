@@ -76,7 +76,7 @@ export function ChatRoom() {
           value={inputValue}
           onChange={setInputValue}
           onSubmit={handleSubmit}
-          disabled={sendMessageMutation.isPending}
+          disabled={sendMessageMutation.isPending || messagesQuery.status === 'pending'}
           isSubmitting={sendMessageMutation.isPending}
         />
       </div>

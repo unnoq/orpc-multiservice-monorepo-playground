@@ -15,6 +15,11 @@ const roomPublisher = new MemoryPublisher<any>()
 const BEARER_REGEX = /^Bearer ?/
 
 const server = createServer(async (req, res) => {
+  if (process.env.NODE_ENV !== 'production') {
+    // Simulate network latency in development mode
+    await new Promise(resolve => setTimeout(resolve, 150))
+  }
+
   const authToken = req.headers.authorization?.replace(BEARER_REGEX, '') || null
 
   const authServiceRPCHandleResult = await authServiceRPCHandler.handle(req, res, {

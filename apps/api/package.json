@@ -10,10 +10,10 @@
     "type:check": "tsc --noEmit"
   },
   "devDependencies": {
-    "@orpc/experimental-pino": "^1.11.1",
-    "@orpc/experimental-publisher": "^1.11.1",
-    "@orpc/openapi": "^1.11.1",
-    "@orpc/server": "^1.11.1",
+    "@orpc/experimental-pino": "^1.11.2",
+    "@orpc/experimental-publisher": "^1.11.2",
+    "@orpc/openapi": "^1.11.2",
+    "@orpc/server": "^1.11.2",
     "@repo/auth-service": "workspace:*",
     "@repo/chat-service": "workspace:*",
     "@repo/planet-service": "workspace:*",

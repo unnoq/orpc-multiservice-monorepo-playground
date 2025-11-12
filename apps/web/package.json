@@ -16,9 +16,9 @@
     "react-dom": "^19.2.0"
   },
   "devDependencies": {
-    "@orpc/client": "^1.11.1",
-    "@orpc/contract": "^1.11.1",
-    "@orpc/tanstack-query": "^1.11.1",
+    "@orpc/client": "^1.11.2",
+    "@orpc/contract": "^1.11.2",
+    "@orpc/tanstack-query": "^1.11.2",
     "@repo/auth-contract": "workspace:*",
     "@repo/chat-contract": "workspace:*",
     "@repo/planet-contract": "workspace:*",
