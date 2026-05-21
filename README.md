@@ -83,7 +83,7 @@ Each microservice follows the **contract-first** pattern:
 ## Sponsors
 
 <p align="center">
-  <a href="https://cdn.jsdelivr.net/gh/unnoq/unnoq/sponsors.svg">
-    <img src='https://cdn.jsdelivr.net/gh/unnoq/unnoq/sponsors.svg'/>
+  <a href="https://cdn.jsdelivr.net/gh/middleapi/static/sponsors.svg">
+    <img src='https://cdn.jsdelivr.net/gh/middleapi/static/sponsors.svg'/>
   </a>
 </p>
